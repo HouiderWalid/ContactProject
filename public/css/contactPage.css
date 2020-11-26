@@ -1,0 +1,44 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+.paginate_button:hover {
+    background-color: red !important;
+}
+.form-control:focus {
+    border-color: #6C757D;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(108, 117, 125, 0.5);
+}
+
+.fa-male{
+    color: #71BDE2;
+}
+
+.fa-female{
+    color: #ED75B2;
+}
+
+.thick-border-left{
+    border-left: 4px solid #6C757D !important
+}
+
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+}
+
+[type=radio] + i {
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+[type=radio] + .madame {
+    border-color: #ED75B2 !important;
+}
+
+[type=radio] + .monsieur {
+    border-color: #71BDE2 !important;
+}
+
+[type=radio]:checked + i{
+    opacity: 1;
+}
