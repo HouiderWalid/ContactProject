@@ -1,9 +1,107 @@
-*{
+*, p{
     font-family: 'Roboto', sans-serif;
 }
-.paginate_button:hover {
-    background-color: red !important;
+
+body{
+    height: 100vh;
 }
+
+/* dashboard menu */
+.app-theme-dark-color ,
+.app-theme-dark-color > ul > li,
+.app-theme-dark-color > ul > li > div > ul > li{
+    background-color: #42484C;
+    border: none;
+    color:  rgba(255, 255, 255, 0.3);
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.expand-effect{
+    height: auto;
+    opacity: 1;
+    transition: height 1s , opacity 1s ;
+}
+
+.shrink-effect{
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 1s, opacity 1s;
+}
+
+.soft-white{
+    color:  rgba(255, 255, 255, 0.5);
+}
+.link-hover{
+    transition: color 0.5s, background-color 0.5s;
+}
+.sub-link-hover{
+    font-size: 0.9em;
+    transition: color 0.5s;
+}
+.sub-link-hover:hover{
+    color: white;
+    transition: color 0.5s;
+}
+.link-hover:nth-child(3):active{
+    transform: rotate(45deg);
+}
+.link-hover:hover, .link-hover-hover{
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.dash-menu-expend{
+    width: 240px;
+    transition: width 0.5s;
+}
+
+.dash-menu-shrink{
+    width: 60px;
+    transition: width 0.5s;
+}
+
+.dash-nav-bar, .dash-sidebar-title{
+    height: 60px;
+    line-height: 60px;
+}
+
+.op-1{
+    color:  rgba(255, 255, 255, 1);
+}
+
+.op-05{
+    color:  rgba(255, 255, 255, 0.5);
+}
+
+.dash-content-shrink{
+    margin-left: 240px;
+    transition: margin-left 0.5;
+}
+
+.dash-content-expend{
+    margin-left: 60px;
+    transition: margin-left 0.5;
+}
+
+/*  end dashboard menu */
+
+i{
+    cursor: pointer;
+}
+
+.full-screen-height{
+    height: 100vh;
+}
+
+.text-no-wrap{
+    white-space: nowrap;
+}
+
 .form-control:focus {
     border-color: #6C757D;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(108, 117, 125, 0.5);

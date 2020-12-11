@@ -22,14 +22,11 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link href="{{ asset('css/contactPage.css') }}" media="all" rel="stylesheet" type="text/css" />
-
+        
     </head>
     <body>
-        <div>
-            @yield('content')
-        </div>
 
-        <p class="container-fluid text-center mt-5">&copy; 2020 créer avec &hearts; par Houider Walid.</p>
+        @yield('dashboard')
 
         {{-- Scripts --}}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

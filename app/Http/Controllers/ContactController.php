@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Contact;
 use App\Societe;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
@@ -15,11 +16,16 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $contacts = Contact::all();
         if($contacts) {
-            return view('contactPage', ['contacts' => $contacts]);
+            if ($request->ajax()){
+                $view = View::make('contactPage', ['contacts' => $contacts]);
+                return $view->renderSections()['dashboard_body'];
+            }else{
+                return view('contactPage', ['contacts' => $contacts]);
+            }
         }else {
             return abort(404);
         }
@@ -30,11 +36,16 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $societes = Societe::all();
         if($societes) {
-            return view('addContactPage', ['societes' => $societes]);
+            if ($request->ajax()){
+                $view = View::make('addContactPage', ['societes' => $societes]);
+                return $view->renderSections()['dashboard_body'];
+            }else{
+                return view('addContactPage', ['societes' => $societes]);
+            }
         }else {
             return abort(404);
         }
@@ -60,18 +71,32 @@ class ContactController extends Controller
                 'contact_civilite'       => 'max:255',
                 'contact_prenom'         => 'required|min:3|max:12|max:255',
                 'contact_nom'            => 'required|unique:contacts||min:3|max:12|max:255',
-                'contact_fonction'       => 'min:3|max:50|max:255',
+                'contact_fonction'       => 'max:50|max:255',
                 'contact_service'        => 'min:3|max:50|max:255',
                 'contact_e_mail'         => 'required|email|unique:contacts|max:255',
                 'contact_telephone'      => 'unique:contacts|min:10|max:20',
                 'contact_date_naissance' => 'date'
             ]);
 
+            /* $contact_validation->sometimes('contact_fonction', 'min:3', function ($input) {
+                return (strlen($input->contact_fonction) > 0);
+            }); */
+
             if($contact_validation->fails()) {
                 return response()->json(['code' => 400, 'messages' => $contact_validation->errors()]);
             }
 
             $contact = new Contact($request->all());
+
+            /*if($contact->hasFile('contact_image')){
+                $file = $contact->file('contact_image');
+                $extension = $file->getClientOriginalExtension();
+                $file_name = time() . '.' . $extension;
+                $file->move('uploads/contacts', $file_name);
+                $contact->contact_image = $file_name;
+            }else{
+                $contact->contact_image = '';
+            }*/
 
             $contact->contact_prenom = title_case($contact->contact_prenom);
             $contact->contact_nom    = title_case($contact->contact_nom);
@@ -147,7 +172,7 @@ class ContactController extends Controller
                 'contact_civilite'       => 'max:255',
                 'contact_prenom'         => 'required|min:3|max:12|max:255',
                 'contact_nom'            => ['required', Rule::unique('contacts')->ignore($contact->contact_id, 'contact_id'), 'min:3', 'max:12', 'max:255'],
-                'contact_fonction'       => 'min:3|max:50|max:255',
+                'contact_fonction'       => 'max:50|max:255',
                 'contact_service'        => 'min:3|max:50|max:255',
                 'contact_e_mail'         => ['required', 'email', Rule::unique('contacts')->ignore($contact->contact_id, 'contact_id'), 'max:255'],
                 'contact_telephone'      => [Rule::unique('contacts')->ignore($contact->contact_id, 'contact_id'), 'min:10', 'max:20'],

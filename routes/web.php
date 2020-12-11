@@ -12,9 +12,10 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use \App\Bank;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('statPage');
 });
 
 Route::group(['prefix' => '/contact'], function(){
@@ -25,4 +26,10 @@ Route::group(['prefix' => '/contact'], function(){
     Route::post('/', 'ContactController@store');
     Route::put('/{id}', 'ContactController@update');
     Route::delete('/{id}', 'ContactController@destroy');
+});
+
+//Route::get('pay', 'PayOrderController@store');
+
+Route::get('pay', function () {
+    Bank::payment('driss', 'walid', '500');
 });

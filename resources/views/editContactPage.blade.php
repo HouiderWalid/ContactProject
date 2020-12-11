@@ -1,8 +1,6 @@
-@extends('home')
+@extends('dashboard')
 
-@section('title', 'Page de modification d\'un contact')
-
-@section('content')
+@section('dashboard_body')
     <div class="container">
         <h1 class="container-fluid py-5 text-center">Modifier un Contact</h1>
         <div class="contact_view_page border p-3 shadow-sm">

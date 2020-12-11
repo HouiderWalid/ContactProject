@@ -1,8 +1,6 @@
-@extends('home')
+@extends('dashboard')
 
-@section('title', 'Page d\'ajout d\'un contact')
-
-@section('content')
+@section('dashboard_body')
     <div class="container">
         <h1 class="container-fluid py-5 text-center">Ajouter un Contact</h1>
         <div class="contact_view_page border p-3 shadow-sm">
@@ -87,7 +85,12 @@
             </div>
             <div class="contact_view_footer d-flex justify-content-start mt-4">
                 <a href="{{ route('contact_list') }}" class="btn btn-secondary font-weight-bold mr-2" ><i class="fas fa-table mr-2"></i>Retour à la liste des contact</a>
-                <button onclick="addContact()" id="edit_contact_button" class="readable btn btn-secondary font-weight-bold" ><i class="fas fa-plus mr-2"></i>Ajouter</button>
+                @include('ui/button', [
+                    'id' => 'edit_contact_button',
+                    'icon' => 'plus',
+                    'text' => 'Ajouter',
+                    'action' => 'addContact()'
+                ])
             </div>
         </div>
     </div>

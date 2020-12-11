@@ -1,9 +1,7 @@
-@extends('home')
+@extends('dashboard')
 
-@section('title', 'Contact Page')
-
-@section('content')
-    <div class="mx-5">
+@section('dashboard_body')
+    <div class="mx-5" id="contact-page">
         <h1 class="container-fluid py-5 text-center">List des contacts</h1>
         <div class="d-flex justify-content-end"><a href="{{ route('add_contact') }}" class="btn btn-secondary font-weight-bold mb-2"><i class="fas fa-plus mr-2"></i>Ajouter un contact</a></div>
         <table class="display hover nowrap" id="contact_page_table">
@@ -43,4 +41,11 @@
             </tbody>
         </table>
     </div>
+    <script>
+        window.addEventListener('load', function () {
+            $('#dash-contact').addClass('link-hover-hover');
+            $('#dash-contact-list').addClass('text-white');
+            $('#dash-contact').parent().children('.expandable').remove('shrink-effect').addClass('expand-effect');
+        })
+    </script>
 @endsection

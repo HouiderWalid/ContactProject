@@ -1,18 +1,26 @@
 var table = null;
 $(document).ready( function () {
+    $('#menu-toggler').on('click', function(){
+        $('.expandable').removeClass('expand-effect').addClass('shrink-effect');
+        $('#dash-menu').toggleClass('dash-menu-expend dash-menu-shrink');
+    });
+    $('.expandable-trigger').on('click', function(){
+        dashSideFocusEffect(this);
+    });
     table = $('#contact_page_table').DataTable({
+        destroy: true,
         "dom": '<"d-flex justify-content-between"fp>rt<"mt-3"l><p>',
         "language": {
-            "search": "Rechercher ",
-            "paginate": {
-                "first":      "Premier",
-                "last":       "Dernier",
-                "next":       "Suivant",
-                "previous":   "Précédent"
+            "search"      : "Rechercher ",
+            "paginate"    : {
+                "first"   : "Premier",
+                "last"    : "Dernier",
+                "next"    : "Suivant",
+                "previous": "Précédent"
             },
-            "lengthMenu":     "Ligne par page _MENU_",
-            "zeroRecords":    "Aucun enregistrements correspondants trouvés",
-            "emptyTable":     "aucune donnée disponible"
+            "lengthMenu"  : "Ligne par page _MENU_",
+            "zeroRecords" : "Aucun enregistrements correspondants trouvés",
+            "emptyTable"  : "aucune donnée disponible"
         }
     });
     $( "#contact_date_naissance" ).datepicker();
@@ -21,6 +29,20 @@ $(document).ready( function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    $('.prevent-reload').click(function (e) {
+        // Avoid the link click from loading a new page
+        e.preventDefault();
+
+        // Load the content from the link's href attribute
+        $('#content-container').load($(this).attr('href'));
+    });
+
+    $('.anchor-li').click(function () {
+        $('.anchor-li').each(function () {
+            $(this).removeClass('op-1').addClass('op-05');
+        });
+        $(this).removeClass('op-05').addClass('op-1');
+    })
 });
 
 function updateContact(id){
@@ -115,9 +137,9 @@ function addContact(){
                 }
                 $('.contact_alert').removeClass('d-none');
                 $('.contact_alert_text').text(response.messages);
-                $('html, body').animate({
-                    scrollTop: ($('#alert_scroll_dest').offset().top) - 50
-                },500);
+                $('#body-container').animate({
+                    scrollTop: ($('#alert_scroll_dest').offset().top)
+                },"slow");
             }
             enableUi();
         },
@@ -198,3 +220,35 @@ function enableUi(){
         $(value).removeAttr('disabled');
     });
 }
+
+function dashSideFocusEffect(clickedElement){
+    $(".main-nav li a").click(function(e) {
+        e.preventDefault();
+        var href = $(this).attr("href");
+        $(".content-container").load(href);
+    });
+    var theElement = $(clickedElement).parent().children('.expandable');
+    var expandable = $('.expandable').parent().children('.expandable');
+    $('.expandable-trigger').removeClass('link-hover-hover');
+    $(clickedElement).addClass('link-hover-hover');
+    if($('#dash-menu').hasClass('dash-menu-expend')){
+        expandable.each(function(){
+            if($(this)[0] !== theElement[0]) $(this).removeClass('expand-effect').addClass('shrink-effect');
+        })
+        theElement.toggleClass('expand-effect shrink-effect');
+    }
+}
+
+function activeAnchor(){
+    $('.anchor-active').css('opacity', '1');
+}
+
+function deactivateAnchor(){
+    $('.anchor-deactivate').css('opacity', '0.3');
+}
+
+/* function preventLoadEvent(e){
+    e.preventDefault();
+    var href = $(this).attr("href");
+    $(".content-container").load(href);
+} */
